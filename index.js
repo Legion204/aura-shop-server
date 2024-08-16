@@ -55,8 +55,13 @@ async function run() {
 
       const filter = {};
 
-      if (category) filter.category = category;
+      // Handle category filtering
+      if (category && category !== 'all') {
+        filter.category = category;
+      }
+       // Handle brand filtering
       if (brand) filter.brand = brand;
+       // Handle search filtering
       if (search) filter.productName = { $regex: search, $options: 'i' };
 
       if (minPrice || maxPrice) {
@@ -80,7 +85,7 @@ async function run() {
         products,
       });
     });
-  
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
