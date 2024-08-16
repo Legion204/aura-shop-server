@@ -59,11 +59,12 @@ async function run() {
       if (category && category !== 'all') {
         filter.category = category;
       }
-       // Handle brand filtering
+      // Handle brand filtering
       if (brand) filter.brand = brand;
-       // Handle search filtering
+      // Handle search filtering
       if (search) filter.productName = { $regex: search, $options: 'i' };
 
+      // Handle price range filtering
       if (minPrice || maxPrice) {
         filter.price = {};
         if (minPrice) filter.price.$gte = parseFloat(minPrice);
