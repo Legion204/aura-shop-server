@@ -28,6 +28,13 @@ async function run() {
 
     // database collection
     const productsCollection = client.db("shopDB").collection("products");
+    const categoryCollection = client.db("shopDB").collection("category");
+
+    // get api for category
+    app.get("/category", async (req, res) => {
+      const result = await categoryCollection.find().toArray();
+      res.send(result);
+    });
 
     // get api for products
     app.get('/products', async (req, res) => {
@@ -86,9 +93,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-  res.send("Aura News Server is running")
+  res.send("Aura shop Server is running")
 });
 
 app.listen(port, () => {
-  console.log(`Aura News Server is running on port ${port}`);
+  console.log(`Aura shop Server is running on port ${port}`);
 });
