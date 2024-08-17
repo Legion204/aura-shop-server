@@ -6,7 +6,15 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://aura-shop-fe344.web.app",
+      "https://aura-shop-fe344.firebaseapp.com",
+    ]
+  })
+);
 app.use(express.json());
 
 
@@ -50,6 +58,7 @@ async function run() {
         maxPrice
       } = req.query;
 
+      // pagination
       const skip = (page - 1) * limit;
       const sortOrder = order === 'asc' ? 1 : -1;
 
